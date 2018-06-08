@@ -25,5 +25,5 @@ fi
 
 # Consider the most recent LastModified timestamp as the most recent version.
 timestamps=$(aws s3api list-objects --bucket $bucket --prefix "$prefix" --query 'Contents[].{LastModified: LastModified}')
-recent="$(echo $timestamps | jq -r 'max_by(.LastModified)')"
+recent="$(echo $timestamps | jq -r 'max_by(.LastModified) // null')"
 echo "[$recent]"
